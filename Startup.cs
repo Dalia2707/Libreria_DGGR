@@ -16,9 +16,11 @@ namespace Libreria_DGGR
 {
     public class Startup
     {
+        public string ConnectionString { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ConnectionString = Configuration.GetConnectionString("DefaultConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -28,6 +30,8 @@ namespace Libreria_DGGR
         {
 
             services.AddControllers();
+            //Configurar DbContext con SQL 
+            services.AddDbContext<Appdb>
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Libreria_DGGR", Version = "v1" });
